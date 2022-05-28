@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> CONTINUE Dashboard </title>
+  <!-- 부트스트랩 css import -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
+  integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+  <link href = "main.css?after" rel = "stylesheet">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg bg-black">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#" style = "color: white;"> Capstone : 컨티뉴 </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#" style = "color: white;"> 위법행위 검출 관리자 Dashboard </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+      <!-- update the version number as needed -->
+      <script src="/__/firebase/8.6.5/firebase-app.js"></script>
+      <!-- include only the Firebase features as you need -->
+      <script src="/__/firebase/8.6.5/firebase-auth.js"></script>
+      <script src="/__/firebase/8.6.5/firebase-database.js"></script>
+      <script src="/__/firebase/8.6.5/firebase-firestore.js"></script>
+      <script src="/__/firebase/8.6.5/firebase-storage.js"></script>
+
+      <!-- 부트스트랩 js import -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" 
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+      <!-- jQuery import -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+      crossorigin="anonymous"></script>
+
+      <script>
+        const firebaseConfig = {
+        apiKey: "AIzaSyBNiW61-MIYFwh4X7Aog0Lf_WTtttFRllg",
+        authDomain: "capstone-continue.firebaseapp.com",
+        databaseURL: "https://capstone-continue-default-rtdb.firebaseio.com",
+        projectId: "capstone-continue",
+        storageBucket: "capstone-continue.appspot.com",
+        messagingSenderId: "1002188087821",
+        appId: "1:1002188087821:web:7d6b97d8471c15a3c6eb44",
+        measurementId: "G-7RCHEVDGW2"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+      </script>
+
+      <!-- Test 시도시 Firebase 사용량 줄이기 위한 임시 주석처리 공간 -->
+      <script> 
+        const db = firebase.firestore( );
+        var cnt = 0;
+        db.collection("Detection").doc("json")
+          .onSnapshot((doc) => {
+          console.log("Current data: ", doc.data());
+          document.getElementById("raw_image_url").src = doc.data().raw_imageURL;
+          document.getElementById("result_image_url").src = doc.data().result_imageURL;
+          cnt += 1;
+          var rowItem = "<tr>";
+          rowItem += "<th>"+ cnt + "</th>";
+          rowItem += "<td>" + doc.data().time + "</td>"
+          rowItem += "<td>" + doc.data().place + "</td>"
+          rowItem += "<td>" + doc.data().case + "</td>"
+          rowItem += "<td>" + doc.data().class + "</td>"
+          rowItem += "</tr>";
+                  
+          $("#new-data").append(rowItem);
+          
+          
+        })
+      </script>
+
+      <div style="display: flex; justify-content: center;">
+        <!-- Server에서 download한 image link로 출력하는 코드 -->
+        <div class = "image-container column">
+          <img id = "raw_image_url" src="/cat.jpg" class="img-fluid" alt="Detected_raw_image" style = "margin-bottom: 10px;">
+          <img id = "result_image_url" src="/hamster.jpg" class="img-fluid" alt ="Detected_result_image">
+        </div>
+
+        <!-- Server에서 download한 데이터 Display 하는 코드 -->
+        <div class = "result-container">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr align="center">
+                  <th scope="col">순번</th>
+                  <th scope="col">시간</th>
+                  <th scope="col">장소</th>
+                  <th scope="col">위반 Case</th>
+                  <th scope="col">위반 Class</th>
+                </tr>
+              </thead>
+
+              <tbody id="new-data" align="center">
+                <!-- 여기에 동적으로 새로운 테이블 데이터 추가됨 -->
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+      </div>
+
+</body>
+</html>

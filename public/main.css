@@ -1,0 +1,21 @@
+.image-container{
+  display: flex;
+  margin: 10px;
+  border: 10px solid rgb(187, 196, 203);
+  width: 500px;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  color: white;
+}
+
+.image-container.column{flex-direction: column;}
+
+.result-container{
+  display: flex;
+  margin: 10px;
+  border: 10px solid rgb(187, 196, 203);
+  width: 700px;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  color: white;
+}
