@@ -64,11 +64,14 @@
       <script> 
         const db = firebase.firestore( );
         var cnt = 0;
-        db.collection("Detection").doc("json")
+        db.collection("Detection").doc("json") //폴더 이름 다중으로 변경할것
           .onSnapshot((doc) => {
           console.log("Current data: ", doc.data());
           document.getElementById("raw_image_url").src = doc.data().raw_imageURL;
           document.getElementById("result_image_url").src = doc.data().result_imageURL;
+          document.getElementById("result_image_url").src = doc.data().result_imageURL;
+          document.getElementById("result_image_url").src = doc.data().result_imageURL;
+          
           cnt += 1;
           var rowItem = "<tr>";
           rowItem += "<th>"+ cnt + "</th>";
